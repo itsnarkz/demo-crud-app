@@ -46,3 +46,48 @@ document.getElementById('update').addEventListener("click",
 
         alert("Update " + name + " successfully");
     })
+
+document.getElementById('show').addEventListener("click",
+    function (event) {
+        event.preventDefault();
+        fetch('http://localhost:8080/api/v1/student')
+            .then(response => response.json())
+            .then(data => {
+                const list = document.getElementById('list');
+                while (list.firstChild) {
+                    list.removeChild(list.firstChild);
+                }
+                data.forEach(student => {
+                    let newList = document.createElement("ul");
+                    list.appendChild(newList);
+                    {
+                        let span = document.createElement("span");
+                        let li = document.createElement("li");
+
+                        li.innerHTML = "ID: " + student.id;
+                        newList.appendChild(li);
+                        li.appendChild(span);
+
+                        li = document.createElement("li");
+                        li.innerHTML = "Name: " + student.name;
+                        newList.appendChild(li);
+                        li.appendChild(span);
+
+                        li = document.createElement("li");
+                        li.innerHTML = "Email: " + student.email;
+                        newList.appendChild(li);
+                        li.appendChild(span);
+
+                        li = document.createElement("li");
+                        li.innerHTML = "Age: " + student.age;
+                        newList.appendChild(li);
+                        li.appendChild(span);
+                    }
+
+                    const br = document.createElement("br");
+                    newList.appendChild(br);
+                })
+
+                console.log(data);
+            })
+    })
