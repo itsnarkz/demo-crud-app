@@ -91,3 +91,22 @@ document.getElementById('show').addEventListener("click",
                 console.log(data);
             })
     })
+
+document.getElementById('delete').addEventListener("click",
+    function (event) {
+        event.preventDefault();
+        let id = document.getElementById('id').value;
+
+        const url = `/api/v1/student/${id}`;
+        fetch(url, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: id,
+            }),
+        })
+
+        alert("Delete person with id " + id + " successfully");
+    })
